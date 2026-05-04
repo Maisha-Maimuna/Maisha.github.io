@@ -1,10 +1,389 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Maisha Maimuna</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Maisha Maimuna — PhD Candidate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #faf9f7;
+      --text: #1a1a1a;
+      --muted: #666;
+      --accent: #2d6a4f;
+      --accent-light: #e8f5ee;
+      --border: #e0ddd8;
+      --card: #ffffff;
+      --news-bg: #f5f3ef;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(250,249,247,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 0 2rem;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 0.25rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    nav a {
+      display: block;
+      padding: 1rem 0.75rem;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    nav a:hover, nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    main { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 4.5rem;
+      align-items: start;
+      margin-bottom: 3rem;
+      animation: fadeUp 0.6s ease both;
+      scroll-margin-top: 60px;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.75rem;
+    }
+    .avatar {
+      width: 190px; height: 190px; border-radius: 50%;
+      background: linear-gradient(135deg, #a8d5ba 0%, #2d6a4f 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Lora', serif; font-size: 3rem; color: white;
+      font-weight: 600; border: 3px solid var(--border);
+    }
+    .sidebar h1 { font-family: 'Lora', serif; font-size: 1.2rem; font-weight: 600; line-height: 1.3; }
+    .sidebar .role { font-size: 0.82rem; color: var(--accent); font-weight: 500; }
+    .sidebar .uni { font-size: 0.82rem; color: var(--muted); }
+    .sidebar .email {
+      font-size: 0.8rem; color: var(--muted); background: var(--news-bg);
+      padding: 0.3rem 0.75rem; border-radius: 20px; text-decoration: none; transition: background 0.2s;
+    }
+    .sidebar .email:hover { background: var(--accent-light); color: var(--accent); }
+    .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; margin-top: 0.25rem; }
+    .links a {
+      font-size: 0.78rem; color: var(--accent); text-decoration: none;
+      padding: 0.25rem 0.6rem; border: 1px solid var(--accent); border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .links a:hover { background: var(--accent); color: white; }
+
+    .bio h2 { font-family: 'Lora', serif; font-size: 1.6rem; font-weight: 600; margin-bottom: 1rem; }
+    .bio p { color: #333; margin-bottom: 0.9rem; font-size: 0.95rem; text-align: justify; }
+
+    .news-box {
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1.1rem 1.4rem;
+  margin-top: 1.25rem;
+  font-size: 0.88rem;
+}
+.news-box .news-header {
+  font-weight: 700; font-size: 0.9rem; color: #1a1a1a; margin-bottom: 0.9rem;
+}
+.news-item { margin-bottom: 0.75rem; }
+.news-item .date { font-weight: 700; font-size: 0.88rem; margin-bottom: 0.25rem; }
+.news-item ul { list-style: disc; padding-left: 1.3rem; }
+.news-item li { font-size: 0.87rem; color: #333; padding: 0.1rem 0; }
+.older-toggle {
+  background: none; border: none; cursor: pointer;
+  font-size: 0.85rem; color: #666; padding: 0.4rem 0;
+  display: flex; align-items: center; gap: 0.3rem; margin-top: 0.25rem;
+}
+.older-toggle:hover { color: #2d6a4f; }
+.older-news { display: none; margin-top: 0.5rem; }
+.older-news.open { display: block; }
+
+    section { margin-bottom: 2.5rem; animation: fadeUp 0.6s 0.2s ease both; scroll-margin-top: 60px; }
+    section h3 {
+      font-family: 'Lora', serif; font-size: 1.15rem; font-weight: 600;
+      margin-bottom: 1.25rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border);
+    }
+
+    .edu-item { display: flex; gap: 1rem; margin-bottom: 1.1rem; align-items: flex-start; }
+    .edu-icon { color: var(--accent); font-size: 1rem; margin-top: 3px; flex-shrink: 0; }
+    .edu-info .degree { font-weight: 500; font-size: 0.9rem; }
+    .edu-info .school { font-size: 0.82rem; color: var(--muted); }
+    .edu-info .detail { font-size: 0.82rem; color: var(--accent); }
+
+    .pub-subhead {
+      font-size: 0.78rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--muted); margin: 1.4rem 0 0.5rem;
+    }
+    .pub-item {
+      border-left: 2px solid var(--border); padding: 0.75rem 1rem;
+      margin-bottom: 0.6rem; transition: border-color 0.2s;
+    }
+    .pub-item:hover { border-left-color: var(--accent); }
+    .pub-item .venue {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.2rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .pub-item .title { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.2rem; line-height: 1.4; }
+    .pub-item .authors { font-size: 0.8rem; color: var(--muted); }
+    .badge {
+      background: #fff3cd; color: #856404; font-size: 0.68rem;
+      padding: 0.1rem 0.45rem; border-radius: 10px; font-weight: 600;
+      letter-spacing: 0; text-transform: none;
+    }
+
+    .service-item { margin-bottom: 1rem; }
+    .service-item .role-title { font-weight: 500; font-size: 0.9rem; }
+    .service-item .role-detail { font-size: 0.82rem; color: var(--muted); }
+
+    .teaching-group { margin-bottom: 1.5rem; }
+    .teaching-group h4 { font-size: 0.88rem; font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+    .teaching-row {
+      display: flex; justify-content: space-between; font-size: 0.85rem;
+      padding: 0.3rem 0; border-bottom: 1px solid var(--border); gap: 1rem;
+    }
+    .teaching-row:last-child { border-bottom: none; }
+    .teaching-row .term { color: var(--muted); font-size: 0.8rem; white-space: nowrap; }
+
+    footer { text-align: center; padding: 2rem; font-size: 0.78rem; color: var(--muted); border-top: 1px solid var(--border); }
+
+    @media (max-width: 640px) {
+      .hero { grid-template-columns: 1fr; }
+      .avatar { width: 80px; height: 80px; font-size: 1.5rem; }
+      .teaching-row { flex-direction: column; gap: 0; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Maisha Maimuna</h1>
-  <p>PhD Candidate | Heracleia HCC Lab | The University of Texas at Arlington</p>
+
+<nav>
+  <ul>
+    <li><a href="#about" class="active">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#service">Service</a></li>
+    <li><a href="#teaching">Teaching</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <div class="hero" id="about">
+    <div class="sidebar">
+      <!--<div class="avatar">MM</div>-->
+      <img src="Maisha2.jpg" alt="Maisha Maimuna" class="avatar" style="object-fit: cover; object-position: 20% center;">
+      <h1>Maisha Maimuna</h1>
+      <div class="role">PhD Candidate · Computer Science</div>
+      <div class="uni">The University of Texas at Arlington</div>
+      <a href="mailto:mxm0641@mavs.uta.edu" class="email">✉ mxm0641@mavs.uta.edu</a>
+      <div class="links">
+        <a href="https://scholar.google.com/citations?user=AAH9xh4AAAAJ&hl=en">Scholar</a>
+        <a href="https://www.linkedin.com/in/maisha-maimuna-776166305/">LinkedIn</a>
+        <a href="#">GitHub</a>
+        <a href="#">CV</a>
+      </div>
+    </div>
+
+    <div class="bio">
+      
+      <p>
+        Hi, I'm Maisha! I am a PhD candidate in Computer Science at the
+        University of Texas at Arlington. I work in the Heracleia Human-Centered Computing Lab under the supervision of Dr. Fillia Makedon.
+        My research lies in human-centered computing (HCC) and human-robot interaction (HRI), with a focus on integrating large language models (LLMs), vision language models(VLMs) in assistive
+        and collaborative technologies.
+      </p>
+      <p>
+        My recent projects include NavVI, a telerobotic simulation with multimodal feedback for
+        visually impaired navigation and Mindful Assistant, a personalized adaptive
+        robotic system for cognitive fatigue assessment in individuals with paralysis.
+      </p>
+      <p>
+        Outside of research, I love being in the mountains - hiking, breathing in the views, and getting happily lost on trails.
+        I also enjoy exploring foods from different cultures around the world.
+      </p>
+
+      <div class="news-box">
+        <div class="news-header">📋 What's new?</div>
+        <div class="news-item">
+          <div class="date">2026</div>
+          <ul>
+            <li>Workshop Chair — GenAssist 2026: Generative AI and LLMs in Assistive Technologies, PETRA 2026</li>
+            <li>Program Committee Member & Reviewer — PETRA 2026</li>
+          </ul>
+        </div>
+        <div class="news-item">
+          <div class="date">2025</div>
+          <ul>
+            <li>🏆 CSE TA of the Month — University of Texas at Arlington, November 2025</li>
+            <li>Published at ACM PETRA 2025: Adaptive Robotic Framework for Assisting People with Paralysis</li>
+            <li>Poster at Innovation Day 2025 and SCRF 2025, UTA</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="education">
+    <h3>Education</h3>
+    <div class="edu-item">
+      <div class="edu-icon">🎓</div>
+      <div class="edu-info">
+        <div class="degree">PhD in Computer Science · Jan 2024 – Present</div>
+        <div class="school">University of Texas at Arlington, USA</div>
+        <div class="detail">CGPA: 4.00</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-icon">🎓</div>
+      <div class="edu-info">
+        <div class="degree">B.Sc. in Computer Science and Engineering · August 2019</div>
+        <div class="school">Chittagong University of Engineering and Technology, Bangladesh</div>
+        <div class="detail">CGPA: 3.58</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="publications">
+    <h3>Publications</h3>
+
+    <div class="pub-subhead">Conference Papers</div>
+    <div class="pub-item">
+      <div class="venue">ACM PETRA 2025</div>
+      <div class="title">An Adaptive Robotic Framework for Assisting People with Paralysis in Daily Living Activities</div>
+      <div class="authors">Karim, E., Maimuna, M., Roy, A., Bin Farukee, M., Nale, G., & Makedon, F.</div>
+    </div>
+
+    <div class="pub-subhead">Preprints</div>
+    <div class="pub-item">
+      <div class="venue">arXiv 2025</div>
+      <div class="title">NavVI: A Telerobotic Simulation with Multimodal Feedback for Visually Impaired Navigation in Warehouse Environments</div>
+      <div class="authors">Maimuna, M., Farukee, M. B., Nikanfar, S., Siddiqua, M., Roy, A., & Makedon, F.</div>
+    </div>
+
+    <div class="pub-subhead">Manuscripts Under Review</div>
+    <div class="pub-item">
+      <div class="venue">Under Review</div>
+      <div class="title">NavVI: Designing and Evaluating Multimodal Guidance to Assist People with Vision Impairments in Telerobotic Warehouse Navigation</div>
+      <div class="authors">Maimuna, M., Farukee, M. B., Nikanfar, S., Siddiqua, & Makedon, F.</div>
+    </div>
+    <div class="pub-item">
+      <div class="venue">Under Review</div>
+      <div class="title">Mindful Assistant: Personalized Assistance in Daily Living Activities for Individuals with Paralysis via Multimodal Cognitive Fatigue Assessment</div>
+      <div class="authors">Karim, E., Maimuna, M., Bin Farukee, & Makedon, F.</div>
+    </div>
+
+    <div class="pub-subhead">Book Chapters</div>
+    <div class="pub-item">
+      <div class="venue">Springer ICO 2022</div>
+      <div class="title">Masked Face Inpainting Using Generative Adversarial Network Based Architecture</div>
+      <div class="authors">Maimuna, M., Hossain, S. M. M., & Deb, K.</div>
+    </div>
+    <div class="pub-item">
+      <div class="venue">Springer ICO 2021</div>
+      <div class="title">Data Mining for Software Engineering: A Survey</div>
+      <div class="authors">Maimuna, M., Rahman, N., Ahmed, R., & Arefin, M. S.</div>
+    </div>
+    <div class="pub-item">
+      <div class="venue">Springer ICSCS 2021</div>
+      <div class="title">A Survey of Data Mining Techniques in the Field of Cyborg Mining</div>
+      <div class="authors">Rahman, N., Maimuna, M., Begum, A., Ahmed, M. R., & Arefin, M. S.</div>
+    </div>
+    <div class="pub-item">
+      <div class="venue">Springer ICO 2022 <span class="badge">🏆 Best Reviewed Paper</span></div>
+      <div class="title">Content Based Email Spam Classifier as a Web Application Using Naïve Bayes Classifier</div>
+      <div class="authors">Chakraborty, A., Das, U. K., Sikder, J., Maimuna, M., & Sarek, K. I.</div>
+    </div>
+  </section>
+
+  <section id="service">
+    <h3>Service</h3>
+    <div class="service-item">
+      <div class="role-title">Workshop Chair</div>
+      <div class="role-detail">GenAssist 2026: Generative AI and Large Language Models in Assistive Technologies — PETRA 2026</div>
+    </div>
+    <div class="service-item">
+      <div class="role-title">Program Committee Member</div>
+      <div class="role-detail">PETRA Conference — 2025, 2026</div>
+    </div>
+    <div class="service-item">
+      <div class="role-title">Conference Reviewer & Editorial Board</div>
+      <div class="role-detail">PETRA Conference — 2025, 2026</div>
+    </div>
+  </section>
+
+  <section id="teaching">
+    <h3>Teaching</h3>
+
+    <div class="teaching-group">
+      <h4>Graduate Teaching Assistant — University of Texas at Arlington</h4>
+      <div class="teaching-row"><span>DASC-5303 · Data Science Project Management</span><span class="term">Spring 2024</span></div>
+      <div class="teaching-row"><span>CSE-5360 · Artificial Intelligence</span><span class="term">Summer 2024 – Spring 2025</span></div>
+      <div class="teaching-row"><span>CSE-6363 · Machine Learning</span><span class="term">Summer 2025</span></div>
+      <div class="teaching-row"><span>CSE-6331 · Advanced Topics in Database Systems</span><span class="term">Fall 2025</span></div>
+      <div class="teaching-row"><span>CSE-5306 · Distributed Systems</span><span class="term">Spring 2026</span></div>
+    </div>
+
+    <div class="teaching-group">
+      <h4>Lecturer — Southern University Bangladesh</h4>
+      <div class="teaching-row"><span>Digital Logic Design</span><span class="term">Spring 2020 – Fall 2022</span></div>
+      <div class="teaching-row"><span>Numerical Methods</span><span class="term">Spring 2020 – Fall 2022</span></div>
+      <div class="teaching-row"><span>Robotics & Computer Vision</span><span class="term">Spring 2020 – Fall 2022</span></div>
+      <div class="teaching-row"><span>Parallel & Distributed Processing</span><span class="term">Spring 2020</span></div>
+      <div class="teaching-row"><span>Data Structure</span><span class="term">Spring 2021</span></div>
+      <div class="teaching-row"><span>Computer Basics & Programming Concepts</span><span class="term">Fall 2021</span></div>
+      <div class="teaching-row"><span>Algorithm Design & Analysis</span><span class="term">Spring 2022 – Fall 2022</span></div>
+      <div class="teaching-row"><span>Digital Image Processing</span><span class="term">Spring 2022 – Fall 2022</span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>© 2026 Maisha Maimuna · University of Texas at Arlington</footer>
+
+<script>
+  const sections = document.querySelectorAll('section, .hero');
+  const navLinks = document.querySelectorAll('nav a');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => observer.observe(s));
+</script>
 </body>
 </html>
